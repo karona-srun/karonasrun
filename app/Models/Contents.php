@@ -14,4 +14,14 @@ class Contents extends Model
     {
         return $this->belongsTo(ContentTypes::class,'content_type_id'); 
     }
+
+     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at', 'content_type_id'
+    ];
+
 }
