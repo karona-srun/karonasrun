@@ -9,6 +9,9 @@ class Contents extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id', 'content_type_id', 'name', 'youtubeId', 'youtubeLink'
+    ];
 
     public function contentType()
     {

@@ -18,11 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/privacy-policy', function(){
+  return view('privacy_policy');
+});
+
 Auth::routes([
-    'login' => false,
+    'login' => true,
     'register' => false, // Registration Routes...
     'reset' => false, // Password Reset Routes...
     'verify' => false, // Email Verification Routes...
   ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('/contents-list', '\App\Http\Controllers\Web\ContentsController');
+Route::resource('/content-types-list', '\App\Http\Controllers\Web\ContentTypesController');

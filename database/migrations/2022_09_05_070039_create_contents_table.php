@@ -16,8 +16,8 @@ class CreateContentsTable extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('content_type_id');
-            $table->string('name')->nullable();
-            $table->string('youtubeId');
+            $table->string('name');
+            $table->string('youtubeId')->nullable();
             $table->string('youtubeLink')->nullable();
             $table->timestamps();
         });

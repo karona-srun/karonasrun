@@ -9,6 +9,10 @@ class ContentTypes extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id', 'name', 'image',
+    ];
+
     public function Contents()
     {
         return $this->hasMany(Contents::class);
