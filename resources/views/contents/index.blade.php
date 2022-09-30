@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-    <div class="container">
+    {{-- <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card bg-light">
@@ -49,7 +49,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form id="contentTypeForm" name="contentTypeForm" method="post" class="form-horizontal">
+                <form id="contentForm" name="contentForm" method="post" class="form-horizontal">
                     
                     <div class="modal-header">
                         <h5 class="modal-title" id="postCrudModal exampleModalLabel">Create Content</h5>
@@ -109,7 +109,7 @@
                 })
             });
 
-            $('#contentTypeForm').submit(function(e) {
+            $('#contentForm').submit(function(e) {
                 e.preventDefault();
                 $('#btn-save').html('Saving...');
                 var fd = new FormData(this);
@@ -121,7 +121,7 @@
                     contentType: false,
                     type: 'post',
                     success: function(data) {
-                        $('#contentTypeForm').trigger("reset");
+                        $('#contentForm').trigger("reset");
                         $('#btn-save').html('Save');
                         location.reload();
                     },
@@ -162,6 +162,293 @@
                     }
                 });
             });
+        });
+    </script> --}}
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="card card-md">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h2 class="h3">Videos List.</h2>
+                                <p class="m-0 text-muted">Videos List is design for show video list and read, create, update,
+                                    and delete operations.</p>
+                            </div>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-primary btn-create" data-bs-toggle="modal"
+                                    data-bs-target="#modal-video">
+                                    <i class="ti ti-playlist-add"></i>
+                                    Create new
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <p>Videos List</p>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
+                                                aria-label="Select all invoices"></th>
+                                        <th>No</th>
+                                        <th>Title Video</th>
+                                        <th>Video Category</th>
+                                        <th>Youtube ID</th>
+                                        <th>Youtube Link</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($contents as $i => $item)
+                                        <tr>
+                                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
+                                                    aria-label="Select invoice"></td>
+                                            <td><span class="text-muted">{{ ++$i }}</span></td>
+                                            <td>
+                                                {{ $item->name }}
+                                            </td>
+                                            <td>
+                                                {{ $item->contentType->name }}
+                                            </td>
+                                            <td>{{ $item->youtubeId }}</td>
+                                            <td>{{ $item->youtubeLink }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-primary btn-icon"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-video"
+                                                    data-id="{{ $item->id }}">
+                                                    <i class="ti ti-zoom-exclamation"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-edit btn-icon"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-video"
+                                                    data-id="{{ $item->id }}">
+                                                    <i class="ti ti-pencil"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-icon btn-delete"
+                                                data-id="{{ $item->id }}" data-bs-toggle="modal"
+                                                data-bs-target="#modal-danger">
+                                                    <i class="ti ti-playlist-x"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span> entries
+                            </p>
+                            <ul class="pagination m-0 ms-auto">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <polyline points="15 6 9 12 15 18"></polyline>
+                                        </svg>
+                                        prev
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        next
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <polyline points="9 6 15 12 9 18"></polyline>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('modals')
+    <div class="modal modal-blur fade" id="modal-video" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="contentForm" name="contentForm" method="post" class="form-horizontal">
+                    <input type="hidden" id="id" name="id">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Video</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Videos Categories</label>
+                            <select type="text" name="content_type_id" id="content_type" class="form-select"
+                                placeholder="Select a video cagetory">
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Your name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Youtube Id</label>
+                            <input type="text" class="form-control" id="youtubeId" name="youtubeId"
+                                placeholder="Your youtube id">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Youtube Link</label>
+                            <input type="text" class="form-control" id="youtubeLink" name="youtubeLink"
+                                placeholder="Your youtube link">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
+                            <i class="ti ti-file-check me-2"></i>
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 9v2m0 4v.01" />
+                        <path
+                            d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
+                    </svg>
+                    <h3>Are you sure?</h3>
+                    <div class="text-muted">Do you really want to remove video? What you've done cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                    Cancel
+                                </a></div>
+                            <div class="col"><a href="#" class="btn btn-danger btn-modal-delete w-100"
+                                    data-bs-dismiss="modal">
+                                    Delete
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('js')
+    <script>
+        $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('body').on('click','.btn-reload', function(){
+                location.reload();
+            })
+
+            $('body').on('click', '.btn-create', function() {
+                $('.modal-title').text("New Video");
+                $.get("{{ url('/api/content-types') }}", function(data) {
+                    var temp = '';
+                    var $select = $('#content_type');
+                    $select.find('option').remove();
+                    $.each(data, function(key, value) {
+                        $select.append('<option value=' + value['id'] + '>' + value[
+                            'name'] + '</option>');
+                    });
+                })
+            });
+
+            $('#contentForm').submit(function(e) {
+                e.preventDefault();
+                var fd = new FormData(this);
+
+                $.ajax({
+                    data: fd,
+                    url: "{{ url('/videos') }}",
+                    processData: false,
+                    contentType: false,
+                    type: 'post',
+                    success: function(data) {
+                        $('#contentForm').trigger("reset");
+                        $('#modal-success').modal('toggle');
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                    }
+                });
+            });
+
+            $('body').on('click', '.btn-edit', function() {
+                $('.btn-create').click();
+                $('#modal-video').modal('toggle');
+
+                var id = $(this).data('id');
+                $.get("{{ url('/videos') }}" + '/' + id + '/edit', function(data) {
+                    $('.modal-title').text("Edit Video");
+                    $('#id').val(data.id);
+                    $('#name').val(data.name);
+                    $('#youtubeId').val(data.youtubeId);
+                    $('#youtubeLink').val(data.youtubeLink);
+                })
+            });
+            
+            var _id;
+            $('body').on('click', '.btn-delete', function() {
+                _id = $(this).data("id");
+            });
+
+            $('body').on('click', '.btn-modal-delete', function() {
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('videos') }}" + '/' + _id,
+                    success: function(data) {
+                        location.reload();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                    }
+                });
+            });
+
         });
     </script>
 @endsection

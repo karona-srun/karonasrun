@@ -27,7 +27,7 @@ class ContentTypesController extends Controller
      */
     public function index()
     {
-        $contents = ContentTypes::orderBy('id','desc')->get();
+        $contents = ContentTypes::orderBy('id','desc')->paginate(5);
         return view('content_types.index',compact('contents'));
     }
 
@@ -50,24 +50,29 @@ class ContentTypesController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'image' => 'required',
+            'name' => 'required'
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
+       
+        if($request->id){
+            $post = ContentTypes::find($request->id);
+            $filepath = $post->image;
+        }
+       
         if($request->file('image')){
             $file= $request->file('image');
-            $filename= date('YmdHi').str_replace(' ', '_', $file->getClientOriginalName());
+            $filename = date('YmdHi').str_replace(' ', '_', $file->getClientOriginalName());
             $file-> move(public_path('images/content_types'), $filename);
+            $filepath = '/images/content_types/' . $filename;
         }
 
-        $ID = $request->id;
+        
         $post = ContentTypes::updateOrCreate(
-                    ['id' => $ID],
-                    ['name' => $request->name, 'image' => '/images/content_types/'.$filename ?? '']);
+                    ['id' => $request->id],
+                    ['name' => $request->name, 'image' => $filepath ]);
     
         return response()->json($post);
     }
@@ -118,7 +123,6 @@ class ContentTypesController extends Controller
     public function destroy($id)
     {
         $post = ContentTypes::where('id',$id)->delete();
-
-        return Response::json($post);
+        return response()->json($post);
     }
 }

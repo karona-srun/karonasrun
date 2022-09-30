@@ -1,79 +1,192 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card bg-light">
-                    <div class="card-header">Content Types List
-                        <button type="button" style="width: min-content" class="btn me-2 btn-outline-success float-end"
-                            data-toggle="modal" data-target="#exampleModal">Create</button>
-                    </div>
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="card card-md">
                     <div class="card-body">
-
-                        <table class="table table-bordered data-table">
-                            <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Action</th>
-                            </tr>
-                            @foreach ($contents as $i => $item)
-                                <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>
-                                        <img src="{{ $item->image }}" alt="" srcset=""
-                                            class=" img-fluid img-thumbnail" width="100px">
-                                    </td>
-                                    <td>
-                                        <div class="row mx-2">
-                                            <button type="button" style="width: auto"
-                                                class="btn me-2 btn-outline-primary btn-edit"
-                                                data-id="{{ $item->id }}">Edit</button>
-                                            <button type="button" style="width: auto"
-                                                class="btn btn-outline-danger btn-delete"
-                                                data-id="{{ $item->id }}">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h2 class="h3">Video Categories List.</h2>
+                                <p class="m-0 text-muted">Video Categories List is design for show video list and read,
+                                    create, update, and delete operations.</p>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary btn-create" data-bs-toggle="modal"
+                                    data-bs-target="#modal-video-category">
+                                    <i class="ti ti-playlist-add"></i>
+                                    Create new
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <p>Video Categories</p>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
+                                                aria-label="Select all invoices"></th>
+                                        <th>No</th>
+                                        <th>Categories</th>
+                                        <th>Image</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($contents as $i => $item)
+                                        <tr>
+                                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
+                                                    aria-label="Select invoice"></td>
+                                            <td>{{ ++$i }}</td>
+                                            <td><span class="text-muted">{{ $item->name }}</span></td>
+                                            <td>
+                                                <img src="{{ $item->image }}" alt="" srcset=""
+                                                    class="avatar me-2">
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-icon btn-edit"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-video-category"
+                                                    data-id="{{ $item->id }}">
+                                                    <i class="ti ti-pencil"></i>
+                                                </button>
+                                                <button type="button"
+                                                    class="btn btn-primary btn-danger btn-icon btn-delete"
+                                                    data-id="{{ $item->id }}" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-danger"><i class="ti ti-playlist-x"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span> entries
+                            </p>
+                            <ul class="pagination m-0 ms-auto">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <polyline points="15 6 9 12 15 18"></polyline>
+                                        </svg>
+                                        prev
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        next
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <polyline points="9 6 15 12 9 18"></polyline>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('modals')
+    <div class="modal modal-blur fade" id="modal-video-category" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <form id="contentTypeForm" name="contentTypeForm" method="post" class="form-horizontal"
                     enctype="multipart/form-data">
-                    @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="postCrudModal exampleModalLabel">Create Content Type</h5>
+                        <h5 class="modal-title">New Video Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="id">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Name</label>
-                            <input type="text" id="name" name="name" class="form-control"
-                                id="formGroupExampleInput" placeholder="Enter name">
-                        </div>
-                        <div class="form-group mt-3">
-                            <label for="exampleFormControlFile1">File input image</label>
-                            <input type="file" id="image" name="image" class="form-control form-control-file"
-                                accept="image/*" id="exampleFormControlFile1">
+                        <div class="row mb-3 align-items-end">
+                            <input type="hidden" name="id" id="id" class="form-control">
+                            <div class="col-auto">
+                                <img id="preview-image-before-upload" class="avatar avatar-upload rounded" data-url=""
+                                    src="https://icons.veryicon.com/png/o/miscellaneous/standard-general-linear-icon/plus-60.png"
+                                    alt="preview" style="height: 64px; width: 64px;">
+                                <input type="file" id="image" required name="image"
+                                    class="form-control form-control-file" accept="image/*" id="exampleFormControlFile1"
+                                    style="display: none">
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Name</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                            data-bs-dismiss="modal">Close</button>
+                        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary ms-auto" id="btn-save" data-bs-dismiss="modal">
+                            <i class="ti ti-file-check me-2"></i>
+                            Save
+                        </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 9v2m0 4v.01" />
+                        <path
+                            d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
+                    </svg>
+                    <h3>Are you sure?</h3>
+                    <div class="text-muted">Do you really want to remove video category? What you've done cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                    Cancel
+                                </a></div>
+                            <div class="col"><a href="#" class="btn btn-danger btn-modal-delete w-100"
+                                    data-bs-dismiss="modal">
+                                    Delete
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -87,51 +200,72 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $('.avatar-upload').click(function() {
+                $('#image').trigger('click');
+            })
+
+            $('#image').change(function() {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#preview-image-before-upload').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            $('body').on('click', '.avatar-upload', function() {
+                var url = $('#image').text();
+            });
+
+            $('body').on('click','.btn-reload', function(){
+                location.reload();
+            })
+
+            $('body').on('click', '.btn-create', function() {
+                $('#contentTypeForm').trigger("reset");
+                $('.modal-title').text("New Video Category");
+            });
 
             $('#contentTypeForm').submit(function(e) {
                 e.preventDefault();
-                $('#btn-save').html('Saving...');
                 let formData = new FormData(this);
 
                 $.ajax({
                     data: formData,
-                    url: "{{ url('content-types-list') }}",
+                    url: "{{ url('videos-categories') }}",
                     type: "POST",
                     contentType: false,
                     processData: false,
                     success: function(data) {
                         $('#contentTypeForm').trigger("reset");
-                        $('#btn-save').html('Save');
-                        location.reload();
+                        $('#modal-success').modal('toggle');
                     },
                     error: function(data) {
                         console.log('Error:', data);
-                        $('#btn-save').html('Save');
                     }
                 });
             });
 
             $('body').on('click', '.btn-edit', function() {
-                $('#exampleModal').modal('toggle');
-
-                var product_id = $(this).data('id');
-                $.get("{{ url('content-types-list') }}" + '/' + product_id + '/edit', function(data) {
-                    $('.modal-title').text("Edit Content Type");
-                    $('#btn-save').html("Update");
+                var id = $(this).data('id');
+                $.get("{{ url('/videos-categories') }}" + '/' + id + '/edit', function(data) {
+                    $('.modal-title').text("Edit Video Category");
                     $('#id').val(data.id);
                     $('#name').val(data.name);
                     $('#image').text(data.image);
+                    $('#preview-image-before-upload').attr('src', data.image);
                 })
             });
 
+            var _id;
             $('body').on('click', '.btn-delete', function() {
+                _id = $(this).data("id");
+            });
 
-                var product_id = $(this).data("id");
-                confirm("Are You sure want to delete !");
+            $('body').on('click', '.btn-modal-delete', function() {
 
                 $.ajax({
                     type: "DELETE",
-                    url: "{{ url('content-types-list') }}" + '/' + product_id,
+                    url: "{{ url('videos-categories') }}" + '/' + _id,
                     success: function(data) {
                         location.reload();
                     },

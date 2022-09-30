@@ -30,5 +30,5 @@ Auth::routes([
   ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/contents-list', '\App\Http\Controllers\Web\ContentsController');
-Route::resource('/content-types-list', '\App\Http\Controllers\Web\ContentTypesController');
+Route::resource('/videos', '\App\Http\Controllers\Web\ContentsController');
+Route::resource('/videos-categories', '\App\Http\Controllers\Web\ContentTypesController');

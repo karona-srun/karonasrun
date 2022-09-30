@@ -12,8 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
+    <link rel="shortcut icon" href="{{ asset('logo/Logo_white.png') }}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
@@ -67,12 +66,15 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('content-types-list') }}">Content Types</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('contents-list') }}">Contents</a>
-                            </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              API FunKH
+                            </a>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="{{ url('content-types-list') }}">Content Types</a></li>
+                              <li><a class="dropdown-item" href="{{ url('contents-list') }}">Contents</a></li>
+                            </ul>
+                          </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About</a>
                             </li>
