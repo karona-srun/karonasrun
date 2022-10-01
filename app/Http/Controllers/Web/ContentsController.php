@@ -26,7 +26,7 @@ class ContentsController extends Controller
      */
     public function index()
     {
-        $contents = Contents::orderBy('id','desc')->get();
+        $contents = Contents::orderBy('id','desc')->paginate(5);
     
         return view('contents.index',compact('contents'));
     }

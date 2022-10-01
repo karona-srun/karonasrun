@@ -74,39 +74,56 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span> entries
-                            </p>
-                            <ul class="pagination m-0 ms-auto">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <polyline points="15 6 9 12 15 18"></polyline>
-                                        </svg>
-                                        prev
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">
-                                        next
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <polyline points="9 6 15 12 9 18"></polyline>
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
+                            <p class="m-0 text-muted">Showing <span>1</span> to <span>{{ $contents->count() }}</span> of
+                                <span>{{ $contents->total() }}</span> entries</p>
+                            @if ($contents->lastPage() > 1)
+                                <ul class="pagination m-0 ms-auto">
+                                    @if ($contents->currentPage() != 1 && $contents->lastPage() >= 5)
+                                        <li class="page-item">
+                                            <a href="{{ $contents->url($contents->url(1)) }}" aria-label="Previous"
+                                                class="page-link">
+                                                <span aria-hidden="true">First</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    {{-- @if ($contents->currentPage() != 1) --}}
+                                    <li class="page-item">
+                                        <a href="{{ $contents->url($contents->currentPage() - 1) }}" class="page-link me-2"
+                                            aria-label="Previous">
+                                            <i class="ti ti-chevron-left mr-5"
+                                                style="position: absolute; margin-left: -20px;"></i>
+                                            <span aria-hidden="true">Prev</span>
+                                        </a>
+                                    </li>
+                                    {{-- @endif --}}
+                                    @for ($i = max($contents->currentPage() - 2, 1); $i <= min(max($contents->currentPage() - 2, 1) + 4, $contents->lastPage()); $i++)
+                                        @if ($contents->currentPage() == $i)
+                                            <li class="active page-item">
+                                            @else
+                                            <li>
+                                        @endif
+                                        <a href="{{ $contents->url($i) }}" class="page-link">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+                                    {{-- @if ($contents->currentPage() != $contents->lastPage()) --}}
+                                    <li class="page-item">
+                                        <a href="{{ $contents->url($contents->currentPage() + 1) }}" class="page-link"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">Next</span>
+                                            <i class="ti ti-chevron-right" style="position: absolute"></i>
+                                        </a>
+                                    </li>
+                                    {{-- @endif --}}
+                                    @if ($contents->currentPage() != $contents->lastPage() && $contents->lastPage() >= 5)
+                                        <li class="page-item">
+                                            <a href="{{ $contents->url($contents->lastPage()) }}" class="page-link"
+                                                aria-label="Next">
+                                                <span aria-hidden="true">Last</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -216,7 +233,7 @@
                 var url = $('#image').text();
             });
 
-            $('body').on('click','.btn-reload', function(){
+            $('body').on('click', '.btn-reload', function() {
                 location.reload();
             })
 

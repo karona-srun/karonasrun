@@ -82,7 +82,9 @@
                     <h1 class="h2">I'm Karona Srun. I'm Web Developer, Tester Manual and API.</h1>
                     <p>Follow for more!!</p>
                     <p>
-                        <a class="btn btn-primary" href="https://www.facebook.com/karona.srun" target="_blank"><i class="ti ti-brand-facebook"></i> PROFILE.</a>
+                        <a class="btn btn-outline-primary" href="https://www.facebook.com/karona.srun" target="_blank"><i class="ti ti-brand-facebook"></i></a>
+                        <a class="btn btn-outline-dark" href="https://github.com/karona-srun" target="_blank"> <i class="ti ti-brand-github"></i></a>
+                       
                     </p>
                     <p>Thanks! <span class="text-danger">♥</span></p>
                 </div>
