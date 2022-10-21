@@ -58,6 +58,18 @@ class ContentsController extends Controller
         return response()->json($content);
     }
 
+    public function newContents()
+    {
+        $contents = Contents::orderBy('created_at','desc')->take(10)->get();
+        return response()->json($contents);
+    }
+
+    public function searchName(Request $request)
+    {
+        $contents = Contents::orderBy('created_at','desc')->where('name','like','%'.$request->name.'%')->get();
+        return response()->json($contents);
+    }
+
     /**
      * Display the specified resource.
      *

@@ -19,8 +19,9 @@ use App\Http\Controllers\ContentTypesController;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
-
+Route::get('/contents/search/{name}',  [ContentsController::class,'searchName']);
+Route::get('/contents/new',  [ContentsController::class,'newContents']);
 Route::resource('/content-types', ContentTypesController::class);
 Route::resource('/contents', ContentsController::class);
 Route::get('/contents/filter-content-type/{id}', [ContentsController::class,'filterContentType']);
+
